@@ -108,3 +108,47 @@ Residual sum of squares (MSE): 0.19
 R2-score: 0.3814
 R2-score percent: 38.14
 """
+
+
+#A temperture:
+fig = plt.figure()
+ax1 = fig.add_subplot(111)
+ax1.scatter(test.atemp, test.log_inf,  color='red')
+ax1.scatter(train.atemp, train.log_inf,  color='blue')
+plt.xlabel("atemp")
+plt.ylabel("answer")
+plt.show()
+
+from sklearn import linear_model
+regr = linear_model.LinearRegression()
+train_x = np.asanyarray(train[['atemp']])
+train_y = np.asanyarray(train[['log_inf']])
+regr.fit (train_x, train_y)
+# The coefficients
+print ('Coefficients: ', regr.coef_)
+print ('Intercept: ',regr.intercept_)
+"""
+Coefficients:  [[2.20298942]]
+Intercept:  [7.23951191]
+"""
+
+plt.scatter(train.atemp, train.log_inf,  color='blue')
+plt.plot(train_x, regr.coef_[0][0]*train_x + regr.intercept_[0], '-r')
+plt.xlabel("atemp")
+plt.ylabel("answer")
+
+from sklearn.metrics import r2_score
+test_x = np.asanyarray(test[['atemp']])
+test_y = np.asanyarray(test[['log_inf']])
+test_y_ = regr.predict(test_x)
+print("Mean absolute error: %.2f" % np.mean(np.absolute(test_y_ - test_y)))
+print("Residual sum of squares (MSE): %.2f" % np.mean((test_y_ - test_y) ** 2))
+print("R2-score: %.4f" % r2_score(test_y , test_y_) )
+per = r2_score(test_y , test_y_)*100
+print("R2-score percent: %.2f" % per)
+"""
+Mean absolute error: 0.34
+Residual sum of squares (MSE): 0.18
+R2-score: 0.3912
+R2-score percent: 39.12
+"""
