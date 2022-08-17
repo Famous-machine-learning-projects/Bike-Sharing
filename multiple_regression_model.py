@@ -154,3 +154,32 @@ Residual sum of squares (MSE): 0.18
 R2-score: 0.3912
 R2-score percent: 39.12
 """
+from sklearn import linear_model
+regr = linear_model.LinearRegression()
+x = np.asanyarray(train[['temp', 'atemp']])
+y = np.asanyarray(train[['log_inf']])
+
+
+regr.fit (x, y)
+# The coefficients
+print ('Coefficients: ', regr.coef_)
+print ('Intercept: ',regr.intercept_)
+
+"""
+Coefficients:  [[-0.01859716  2.2236595 ]]
+Intercept:  [7.23892938]
+"""
+
+y_hat= regr.predict(test[['temp', 'atemp']])
+x = np.asanyarray(test[['temp', 'atemp']])
+y = np.asanyarray(test[['log_inf']])
+print("Residual sum of squares: %.2f"
+      % np.mean((y_hat - y) ** 2))
+
+# Explained variance score: 1 is perfect prediction
+print('Variance score: %.2f' % regr.score(x, y))
+
+"""
+Residual sum of squares: 0.18
+Variance score: 0.39
+"""
