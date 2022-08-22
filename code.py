@@ -109,7 +109,6 @@ R2-score: 0.3814
 R2-score percent: 38.14
 """
 
-
 #A temperture:
 fig = plt.figure()
 ax1 = fig.add_subplot(111)
