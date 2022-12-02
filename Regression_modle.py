@@ -5,7 +5,6 @@ import numpy as np
 %matplotlib inline
 
 df = pd.read_csv('day.csv', encoding='cp1252')
-
 # take a look at the dataset
 df.head()
 # summarize the data
