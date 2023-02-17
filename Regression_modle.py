@@ -9,7 +9,6 @@ df = pd.read_csv('day.csv', encoding='cp1252')
 df.head()
 # summarize the data
 df.describe()
-
 cdf = df[['season', 'weathersit','temp', 'atemp', 'hum', 'windspeed', 'cnt']]
 cdf.head(9)
 viz = cdf[['season', 'weathersit','temp', 'atemp', 'hum', 'windspeed', 'cnt']]
